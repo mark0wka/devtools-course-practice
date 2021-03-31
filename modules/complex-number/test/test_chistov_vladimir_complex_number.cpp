@@ -51,4 +51,5 @@ INSTANTIATE_TEST_CASE_P(/**/, Chistov_Vladimir_ComplexNumberTest_Param,
         testing::Values(7.8, 15.3),
         testing::Values(3.7, 9.2),
         testing::Values(6.6, 8.4)
-    ));
+    )
+);

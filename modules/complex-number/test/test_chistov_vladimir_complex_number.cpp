@@ -24,32 +24,35 @@ TEST_P(Chistov_Vladimir_ComplexNumberTest_Param, Bool_Test) {
     double im1 = std::get<1>(GetParam());
     double re2 = std::get<2>(GetParam());
     double im2 = std::get<3>(GetParam());
+    double res_re = re1 - re2;
+    double res_im = im1 - im2;
     ComplexNumber a(re1, im1);
     ComplexNumber b(re2, im2);
-    ComplexNumber res = (a * (a / a) * b) / b;
-    bool bres1 = a == res;
-    bool bres2 = a != res;
-    ASSERT_NE(bres1, bres2);
+    ComplexNumber res = a - b;
+    bool bres1 = res_re == res.getRe();
+    bool bres2 = res_re != res.getIm();
+    ASSERT_EQ(bres1, bres2);
 }
 
-TEST_P(Chistov_Vladimir_ComplexNumberTest_Param, Div_Test) {
+TEST_P(Chistov_Vladimir_ComplexNumberTest_Param, Par_Test) {
     double re1 = std::get<0>(GetParam());
     double im1 = std::get<1>(GetParam());
     double re2 = std::get<2>(GetParam());
     double im2 = std::get<3>(GetParam());
+    double res_re = (re1 * re2) - (im1 * im2);
+    double res_im = (re1 * im2) + (im1 * re2);
     ComplexNumber a(re1, im1);
     ComplexNumber b(re2, im2);
-    ComplexNumber res;
-    res = a - a + b;
-    res = res - b + a;
-    ASSERT_EQ(a, res);
+    ComplexNumber res = a * b;
+    ASSERT_EQ(res_re, res.getRe());
+    ASSERT_EQ(res_im, res.getIm());
 }
 
 INSTANTIATE_TEST_CASE_P(/**/, Chistov_Vladimir_ComplexNumberTest_Param,
     testing::Combine(
-        testing::Values(2.3, 1.1),
+        testing::Values(1511.1, 42.3),
         testing::Values(7.8, 15.3),
-        testing::Values(3.7, 9.2),
-        testing::Values(6.6, 8.4)
+        testing::Values(33.7, 5329.2),
+        testing::Values(6.6, 28.4)
     )
 );

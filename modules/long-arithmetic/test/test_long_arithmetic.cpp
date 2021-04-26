@@ -75,3 +75,11 @@ TEST(Chistov_long_arithmetic, Logic) {
     ASSERT_TRUE(bi2.even());
     ASSERT_ANY_THROW(bi / bigInt(0));
 }
+
+TEST(Chistov_long_arithmetic, No_Errors) {
+    bigInt bi1(1), bi2(2), bi3(3), bi4(4), bi5;
+    if (bi1 < bi2 || bi1 > bi2 || bi1 != bi2 || bi1 >= bi2 || bi1 <= bi2) {
+        bi5 = ((bi4 + bi3 - bi1) / bi1 * bi1) % bi2;
+    }
+    ASSERT_EQ(bi2, bi1 + bigInt(1));
+}

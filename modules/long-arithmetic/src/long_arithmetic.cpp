@@ -68,7 +68,7 @@ bool operator ==(const bigInt& left, const bigInt& right) {
     }
 
     if (left.storage.size() != right.storage.size()) return false;
-    for (long long i = 0; i < left.storage.size(); ++i) if
+    for (size_t i = 0; i < left.storage.size(); ++i) if
         (left.storage[i] != right.storage[i]) return false;
 
     return true;
@@ -133,7 +133,7 @@ const bigInt operator +(bigInt left, const bigInt& right) {
         if (right.negFlag) return left - (-right);
     }
     int carry = 0;
-    for (long long i = 0; i < std::max(left.storage.size(),
+    for (size_t i = 0; i < std::max(left.storage.size(),
         right.storage.size()) || carry != 0; ++i) {
         if (i == left.storage.size()) left.storage.push_back(0);
         left.storage[i] += carry + (i < right.storage.size() ?
@@ -150,7 +150,7 @@ const bigInt operator -(bigInt left, const bigInt& right) {
     else if (left.negFlag) return -(-left + right);
     else if (left < right) return -(right - left);
     int carry = 0;
-    for (long long i = 0; i < right.storage.size() || carry != 0; ++i) {
+    for (size_t i = 0; i < right.storage.size() || carry != 0; ++i) {
         left.storage[i] -= carry + (i < right.storage.size() ?
             right.storage[i] : 0);
         carry = left.storage[i] < 0;
@@ -205,9 +205,9 @@ bigInt::bigInt(int i) {
 const bigInt operator *(const bigInt& left, const bigInt& right) {
     bigInt result;
     result.storage.resize(left.storage.size() + right.storage.size());
-    for (long long i = 0; i < left.storage.size(); ++i) {
+    for (size_t i = 0; i < left.storage.size(); ++i) {
         int carry = 0;
-        for (long long j = 0; j < right.storage.size() || carry != 0; ++j) {
+        for (size_t j = 0; j < right.storage.size() || carry != 0; ++j) {
             long long cur = result.storage[i + j] +
                 left.storage[i] * 1LL * (j < right.storage.size() ?
                     right.storage[j] : 0) + carry;

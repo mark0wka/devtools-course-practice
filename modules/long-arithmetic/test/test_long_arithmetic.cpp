@@ -3,23 +3,20 @@
 #include <gtest/gtest.h>
 #include "include/long_arithmetic.h"
 
-
 TEST(Chistov_long_arithmetic, Constructor) {
     bigInt bi;
     bigInt bi2("123456789");
     bigInt bi3(123456789);
-    ASSERT_EQ(0, bi);
+    ASSERT_EQ(bigInt(0), bi);
     ASSERT_EQ(bi3, bi2);
 }
 
-
-
 TEST(Chistov_long_arithmetic, Compare) {
     bigInt bi("2");
-    bi = bi.pow(1000);
-    bigInt f = 1;
+    bi = bi.pow(bigInt(1000));
+    bigInt f = bigInt(1);
     bigInt bi2 = bi;
-    for (bigInt i = 2; i <= bigInt(100); ++i) f *= i;
+    for (bigInt i = bigInt(2); i <= bigInt(100); ++i) f *= i;
 
     ASSERT_TRUE(f != bi);
     ASSERT_TRUE(f <= bi);
@@ -41,13 +38,13 @@ TEST(Chistov_long_arithmetic, Addition_Subtractoin) {
     ASSERT_EQ(bi + bi2, bi4);
     ASSERT_EQ(bi3 - bi2, bi5);
     ASSERT_EQ(bi++, bi2);
-    ASSERT_EQ(bi, bi2 + 1);
-    ASSERT_EQ(bi--, bi2 + 1);
+    ASSERT_EQ(bi, bi2 + bigInt(1));
+    ASSERT_EQ(bi--, bi2 + bigInt(1));
     ASSERT_EQ(bi, bi2);
-    ASSERT_EQ(++bi2, bi2 + 1);
-    ASSERT_EQ(--bi2, bi2 - 1);
+    ASSERT_EQ(++bi2, bi2 + bigInt(1));
+    ASSERT_EQ(--bi2, bi2 - bigInt(1));
     ASSERT_EQ(+bi, bi);
-    ASSERT_EQ(-bi, 0 - bi);
+    ASSERT_EQ(-bi, bigInt(0) - bi);
 }
 
 TEST(Chistov_long_arithmetic, Multiplication_Division) {
@@ -61,20 +58,20 @@ TEST(Chistov_long_arithmetic, Multiplication_Division) {
     bi6 *= bi3;
     bi7 = bi6;
     bi7 /= bi3;
-    bi8 = 10;
-    ASSERT_EQ(bi * 2, bi4);
-    ASSERT_EQ(bi4 / 2, bi);
+    bi8 = bigInt(10);
+    ASSERT_EQ(bi * bigInt(2), bi4);
+    ASSERT_EQ(bi4 / bigInt(2), bi);
     ASSERT_EQ(bi3 * bi5, bi6);
     ASSERT_EQ(bi6 / bi3, bi7);
     ASSERT_EQ(bi3 % bi2, bi5);
-    ASSERT_EQ(bi8.pow(13), bi2);
+    ASSERT_EQ(bi8.pow(bigInt(13)), bi2);
 }
 
 TEST(Chistov_long_arithmetic, Logic) {
     bigInt bi("1234567891112131415"), bi2, bi3;
-    bi2 = bi - 1;
+    bi2 = bi - bigInt(1);
     bi3 = -bi;
     ASSERT_TRUE(bi.odd());
     ASSERT_TRUE(bi2.even());
-    ASSERT_ANY_THROW(bi / 0);
+    ASSERT_ANY_THROW(bi / bigInt(0));
 }

@@ -172,21 +172,21 @@ bigInt& bigInt::operator -=(const bigInt& value) {
 }
 
 const bigInt bigInt::operator++() {
-    return (*this += 1);
+    return (*this += bigInt(1));
 }
 
 const bigInt bigInt::operator --() {
-    return *this -= 1;
+    return *this -= bigInt(1);
 }
 
 const bigInt bigInt::operator ++(int i) {
-    *this += 1;
-    return *this - 1;
+    *this += bigInt(1);
+    return *this - bigInt(1);
 }
 
 const bigInt bigInt::operator --(int i) {
-    *this -= 1;
-    return *this + 1;
+    *this -= bigInt(1);
+    return *this + bigInt(1);
 }
 
 bigInt::operator std::string() const {
@@ -224,7 +224,7 @@ const bigInt operator *(const bigInt& left, const bigInt& right) {
 }
 
 const bigInt operator /(const bigInt& left, const bigInt& right) {
-    if (right == 0) throw bigInt::devByZero();
+    if (right == bigInt(0)) throw bigInt::devByZero();
     bigInt b = right;
     b.negFlag = false;
     bigInt result, current;
@@ -237,7 +237,7 @@ const bigInt operator /(const bigInt& left, const bigInt& right) {
         int x = 0, l = 0, r = bigInt::BASE;
         while (l <= r) {
             int m = (l + r) / 2;
-            bigInt t = b * m;
+            bigInt t = b * bigInt(m);
             if (t <= current) {
                 x = m;
                 l = m + 1;
@@ -247,7 +247,7 @@ const bigInt operator /(const bigInt& left, const bigInt& right) {
         }
 
         result.storage[i] = x;
-        current = current - b * x;
+        current = current - b * bigInt(x);
     }
 
     result.negFlag = left.negFlag != right.negFlag;
@@ -291,10 +291,10 @@ bool bigInt::even() const {
 
 const bigInt bigInt::pow(bigInt n) const {
     bigInt a(*this), result(1);
-    while (n != 0) {
+    while (n != bigInt(0)) {
         if (n.odd()) result *= a;
         a *= a;
-        n /= 2;
+        n /= bigInt(2);
     }
 
     return result;

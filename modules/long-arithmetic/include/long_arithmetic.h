@@ -20,8 +20,8 @@ class bigInt {
  public:
     class devByZero : public std::exception {  };
     bigInt();
-    bigInt(std::string);
-    bigInt(int i);
+    explicit bigInt(std::string);
+    explicit bigInt(int i);
     friend std::ostream& operator <<(std::ostream&, const bigInt&);
     operator std::string() const;
     const bigInt operator +() const;

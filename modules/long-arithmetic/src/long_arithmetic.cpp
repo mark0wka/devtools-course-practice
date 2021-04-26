@@ -1,6 +1,8 @@
 // Copyright 2021 Chistov Vladimir
 
 #include "include/long_arithmetic.h"
+#include <string>
+#include <algorithm>
 
 bigInt::bigInt() {
     this->negFlag = false;
@@ -177,12 +179,12 @@ const bigInt bigInt::operator --() {
     return *this -= 1;
 }
 
-const bigInt bigInt::operator ++(int) {
+const bigInt bigInt::operator ++(int i) {
     *this += 1;
     return *this - 1;
 }
 
-const bigInt bigInt::operator --(int) {
+const bigInt bigInt::operator --(int i) {
     *this -= 1;
     return *this + 1;
 }
@@ -208,7 +210,7 @@ const bigInt operator *(const bigInt& left, const bigInt& right) {
     for (size_t i = 0; i < left.storage.size(); ++i) {
         int carry = 0;
         for (size_t j = 0; j < right.storage.size() || carry != 0; ++j) {
-            long long cur = result.storage[i + j] +
+            __int64 cur = result.storage[i + j] +
                 left.storage[i] * 1LL * (j < right.storage.size() ?
                     right.storage[j] : 0) + carry;
             result.storage[i + j] = static_cast<int>(cur % bigInt::BASE);

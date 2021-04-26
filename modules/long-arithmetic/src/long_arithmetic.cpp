@@ -19,7 +19,7 @@ bigInt::bigInt(std::string str) {
             this->negFlag = false;
         }
 
-        for (__int64 i = str.length(); i > 0; i -= 9) {
+        for (int64_t i = str.length(); i > 0; i -= 9) {
             if (i < 9)
                 this->storage.push_back(atoi(str.substr(0, i).c_str()));
             else
@@ -46,7 +46,7 @@ std::ostream& operator <<(std::ostream& os, const bigInt& bi) {
         if (bi.negFlag) os << '-';
         os << bi.storage.back();
         char old_fill = os.fill('0');
-        for (__int64 i = static_cast<__int64>(bi.storage.size())
+        for (int64_t i = static_cast<int64_t>(bi.storage.size())
             - 2; i >= 0; --i) os << std::setw(9) << bi.storage[i];
         os.fill(old_fill);
     }
@@ -99,7 +99,7 @@ bool operator <(const bigInt& left, const bigInt& right) {
             if (left.storage.size() != right.storage.size()) {
                 return left.storage.size() < right.storage.size();
             } else {
-                for (__int64 i = left.storage.size() - 1; i >= 0; --i) {
+                for (int64_t i = left.storage.size() - 1; i >= 0; --i) {
                     if (left.storage[i] != right.storage[i]) return
                         left.storage[i] < right.storage[i];
                 }
@@ -210,7 +210,7 @@ const bigInt operator *(const bigInt& left, const bigInt& right) {
     for (size_t i = 0; i < left.storage.size(); ++i) {
         int carry = 0;
         for (size_t j = 0; j < right.storage.size() || carry != 0; ++j) {
-            __int64 cur = result.storage[i + j] +
+            int64_t cur = result.storage[i + j] +
                 left.storage[i] * 1LL * (j < right.storage.size() ?
                     right.storage[j] : 0) + carry;
             result.storage[i + j] = static_cast<int>(cur % bigInt::BASE);
@@ -229,7 +229,7 @@ const bigInt operator /(const bigInt& left, const bigInt& right) {
     b.negFlag = false;
     bigInt result, current;
     result.storage.resize(left.storage.size());
-    for (__int64 i = static_cast<__int64>(left.storage.size())
+    for (int64_t i = static_cast<int64_t>(left.storage.size())
         - 1; i >= 0; --i) {
         current.shiftRight();
         current.storage[0] = left.storage[i];

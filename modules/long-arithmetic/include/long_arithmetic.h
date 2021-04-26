@@ -9,9 +9,6 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
-#include <string_view>
-
-
 
 class bigInt {
     static const int BASE = 1000000000;
@@ -24,15 +21,15 @@ class bigInt {
     class devByZero : public std::exception {  };
     bigInt();
     bigInt(std::string);
-    bigInt(int);
+    bigInt(int i);
     friend std::ostream& operator <<(std::ostream&, const bigInt&);
     operator std::string() const;
     const bigInt operator +() const;
     const bigInt operator -() const;
     const bigInt operator ++();
-    const bigInt operator ++(int);
+    const bigInt operator ++(int i);
     const bigInt operator --();
-    const bigInt operator --(int);
+    const bigInt operator --(int i);
     friend bool operator ==(const bigInt&, const bigInt&);
     friend bool operator <(const bigInt&, const bigInt&);
     friend bool operator !=(const bigInt&, const bigInt&);

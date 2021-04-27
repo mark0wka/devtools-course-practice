@@ -54,7 +54,8 @@ void bigInt::delZeros() {
     return os;
 }*/
 
-bool operator ==(const bigInt& left, const bigInt& right) {
+const bool bigInt::operator==(const bigInt& right) const {
+    bigInt left = *this;
     if (left.negFlag != right.negFlag) return false;
     if (left.storage.empty()) {
         if (right.storage.empty() || (right.storage.size() == 1 &&
@@ -86,7 +87,8 @@ const bigInt bigInt::operator -() const {
     return copy;
 }
 
-bool operator <(const bigInt& left, const bigInt& right) {
+const bool bigInt::operator<(const bigInt& right) const {
+    bigInt left = *this;
     if (left == right) return false;
     if (left.negFlag) {
         if (right.negFlag) return ((-right) < (-left));
@@ -110,23 +112,24 @@ bool operator <(const bigInt& left, const bigInt& right) {
     }
 }
 
-bool operator !=(const bigInt& left, const bigInt& right) {
-    return !(left == right);
+const bool bigInt::operator!=(const bigInt& right) const {
+    return !(*this == right);
 }
 
-bool operator <=(const bigInt& left, const bigInt& right) {
-    return (left < right || left == right);
+const bool bigInt::operator<=(const bigInt& right) const {
+    return (*this < right || *this == right);
 }
 
-bool operator >(const bigInt& left, const bigInt& right) {
-    return !(left <= right);
+const bool bigInt::operator>(const bigInt& right) const {
+    return !(*this <= right);
 }
 
-bool operator >=(const bigInt& left, const bigInt& right) {
-    return !(left < right);
+const bool bigInt::operator>=(const bigInt& right) const {
+    return !(*this < right);
 }
 
-const bigInt operator +(bigInt left, const bigInt& right) {
+bigInt bigInt::operator+(const bigInt& right) const {
+    bigInt left = *this;
     if (left.negFlag) {
         if (right.negFlag) return -(-left + (-right));
         else
@@ -147,7 +150,8 @@ const bigInt operator +(bigInt left, const bigInt& right) {
     return left;
 }
 
-const bigInt operator -(bigInt left, const bigInt& right) {
+bigInt bigInt::operator -(const bigInt& right) const {
+    bigInt left = *this;
     if (right.negFlag) return left + (-right);
     else if (left.negFlag) return -(-left + right);
     else if (left < right) return -(right - left);
@@ -204,8 +208,9 @@ bigInt::bigInt(int i) {
     if (i != 0) this->storage.push_back(std::abs(i));
 }
 
-const bigInt operator *(const bigInt& left, const bigInt& right) {
+bigInt bigInt::operator*(const bigInt& right) const {
     bigInt result;
+    bigInt left = *this;
     result.storage.resize(left.storage.size() + right.storage.size());
     for (size_t i = 0; i < left.storage.size(); ++i) {
         int carry = 0;
@@ -223,8 +228,9 @@ const bigInt operator *(const bigInt& left, const bigInt& right) {
     return result;
 }
 
-const bigInt operator /(const bigInt& left, const bigInt& right) {
+bigInt bigInt::operator/(const bigInt& right) const {
     if (right == bigInt(0)) throw bigInt::devByZero();
+    bigInt left = *this;
     bigInt b = right;
     b.negFlag = false;
     bigInt result, current;
@@ -274,7 +280,8 @@ bigInt& bigInt::operator /=(const bigInt& value) {
     return *this = (*this / value);
 }
 
-const bigInt operator %(const bigInt& left, const bigInt& right) {
+bigInt bigInt::operator%(const bigInt& right) const {
+    bigInt left = *this;
     bigInt result = left - (left / right) * right;
     if (result.negFlag) result += right;
     return result;

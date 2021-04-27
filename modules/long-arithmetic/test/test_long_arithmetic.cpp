@@ -7,12 +7,16 @@ TEST(Chistov_long_arithmetic, Constructor) {
     bigInt bi;
     bigInt bi2("123456789");
     bigInt bi3(123456789);
+    bigInt bi4("");
+    bigInt bi5("-123456789");
     ASSERT_EQ(bigInt(0), bi);
     ASSERT_EQ(bi3, bi2);
+    ASSERT_EQ(bi5, -bi2);
+    ASSERT_EQ(bi4, bi);
 }
 
 TEST(Chistov_long_arithmetic, Compare) {
-    bigInt bi("2");
+    bigInt bi("2"), bi3, bi4;
     bi = bi.pow(bigInt(1000));
     bigInt f = bigInt(1);
     bigInt bi2 = bi;
@@ -26,15 +30,23 @@ TEST(Chistov_long_arithmetic, Compare) {
     ASSERT_TRUE(bi2 <= bi);
     ASSERT_TRUE(bi2 >= bi);
     ASSERT_TRUE(bi2 == bi);
+    ASSERT_TRUE(bi3 == bi4);
+    ASSERT_FALSE(bi3 == bi);
+    ASSERT_FALSE(bi == bi3);
+    ASSERT_TRUE(-bi < -f);
+    ASSERT_TRUE(-bi < f);
+    ASSERT_FALSE(bi < -f);
+    ASSERT_FALSE(bi < bi2);
 }
 
 TEST(Chistov_long_arithmetic, Addition_Subtractoin) {
     bigInt bi("10000000000000"), bi2, bi3, bi4("20000000000000"),
-        bi5("000123456789");
+        bi5("000123456789"), bi6("-10000000000000"), bi7;
     bi3 = bi;
     bi3 += bi5;
     bi2 = bi3;
     bi2 -= bi5;
+    bi7 = bi6;
     ASSERT_EQ(bi + bi2, bi4);
     ASSERT_EQ(bi3 - bi2, bi5);
     ASSERT_EQ(bi++, bi2);
@@ -45,6 +57,8 @@ TEST(Chistov_long_arithmetic, Addition_Subtractoin) {
     ASSERT_EQ(--bi2, bi2 - bigInt(1));
     ASSERT_EQ(+bi, bi);
     ASSERT_EQ(-bi, bigInt(0) - bi);
+    ASSERT_EQ(bi6 + bi, bigInt(0));
+    ASSERT_EQ(bi6 + bi7, -bi4);
 }
 
 TEST(Chistov_long_arithmetic, Multiplication_Division) {

@@ -193,11 +193,11 @@ const bigInt bigInt::operator --(int i) {
     return *this + bigInt(1);
 }
 
-bigInt::operator std::string() const {
+/*bigInt::operator std::string() const {
     std::stringstream ss;
     // ss << *this;
     return ss.str();
-}
+}*/
 
 bigInt::bigInt(int i) {
     if (i < 0) this->negFlag = true;

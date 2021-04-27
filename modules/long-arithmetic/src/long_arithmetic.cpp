@@ -39,7 +39,7 @@ void bigInt::delZeros() {
         negFlag = false;
 }
 
-std::ostream& operator <<(std::ostream& os, const bigInt& bi) {
+/*std::ostream& operator <<(std::ostream& os, const bigInt& bi) {
     if (bi.storage.empty()) {
         os << 0;
     } else {
@@ -52,7 +52,7 @@ std::ostream& operator <<(std::ostream& os, const bigInt& bi) {
     }
 
     return os;
-}
+}*/
 
 bool operator ==(const bigInt& left, const bigInt& right) {
     if (left.negFlag != right.negFlag) return false;
@@ -191,7 +191,7 @@ const bigInt bigInt::operator --(int i) {
 
 bigInt::operator std::string() const {
     std::stringstream ss;
-    ss << *this;
+    // ss << *this;
     return ss.str();
 }
 

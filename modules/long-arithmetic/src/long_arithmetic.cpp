@@ -105,7 +105,6 @@ const bool bigInt::operator<(const bigInt& right) const {
                     if (left.storage[i] != right.storage[i]) return
                         left.storage[i] < right.storage[i];
                 }
-
                 return false;
             }
         }

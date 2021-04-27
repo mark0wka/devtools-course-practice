@@ -21,7 +21,7 @@ TEST(Chistov_long_arithmetic, Compare) {
     bigInt f = bigInt(1);
     bigInt bi2 = bi;
     for (bigInt i = bigInt(2); i <= bigInt(100); ++i) f *= i;
-
+    bigInt bi5(100000000000000), bi6(100000000000000);
     ASSERT_TRUE(f != bi);
     ASSERT_TRUE(f <= bi);
     ASSERT_TRUE(f < bi);
@@ -36,7 +36,7 @@ TEST(Chistov_long_arithmetic, Compare) {
     ASSERT_TRUE(-bi < -f);
     ASSERT_TRUE(-bi < f);
     ASSERT_FALSE(bi < -f);
-    ASSERT_FALSE(bi < bi2);
+    ASSERT_FALSE(bi5 < bi6);
 }
 
 TEST(Chistov_long_arithmetic, Addition_Subtractoin) {

@@ -47,18 +47,18 @@ TEST(Chistov_long_arithmetic, Addition_Subtractoin) {
     bi2 = bi3;
     bi2 -= bi5;
     bi7 = bi6;
-    ASSERT_EQ(bi + bi2, bi4);
-    ASSERT_EQ(bi3 - bi2, bi5);
-    ASSERT_EQ(bi++, bi2);
+    ASSERT_EQ(bi4, bi + bi2);
+    ASSERT_EQ(bi5, bi3 - bi2);
+    ASSERT_EQ(bi2, bi++);
     ASSERT_EQ(bi, bi2 + bigInt(1));
     ASSERT_EQ(bi--, bi2 + bigInt(1));
     ASSERT_EQ(bi, bi2);
     ASSERT_EQ(++bi2, bi2 + bigInt(1));
     ASSERT_EQ(--bi2, bi2 - bigInt(1));
-    ASSERT_EQ(+bi, bi);
+    ASSERT_EQ(bi, +bi);
     ASSERT_EQ(-bi, bigInt(0) - bi);
-    ASSERT_EQ(bi6 + bi, bigInt(0));
-    ASSERT_EQ(bi6 + bi7, -bi4);
+    ASSERT_EQ(bigInt(0), bi6 + bi);
+    ASSERT_EQ(-bi4, bi6 + bi7);
 }
 
 TEST(Chistov_long_arithmetic, Multiplication_Division) {
@@ -73,12 +73,12 @@ TEST(Chistov_long_arithmetic, Multiplication_Division) {
     bi7 = bi6;
     bi7 /= bi3;
     bi8 = bigInt(10);
-    ASSERT_EQ(bi * bigInt(2), bi4);
-    ASSERT_EQ(bi4 / bigInt(2), bi);
-    ASSERT_EQ(bi3 * bi5, bi6);
-    ASSERT_EQ(bi6 / bi3, bi7);
-    ASSERT_EQ(bi3 % bi2, bi5);
-    ASSERT_EQ(bi8.pow(bigInt(13)), bi2);
+    ASSERT_EQ(bi4, bi * bigInt(2));
+    ASSERT_EQ(bi, bi4 / bigInt(2));
+    ASSERT_EQ(bi6, bi3 * bi5);
+    ASSERT_EQ(bi7, bi6 / bi3);
+    ASSERT_EQ(bi5, bi3 % bi2);
+    ASSERT_EQ(bi2, bi8.pow(bigInt(13)));
 }
 
 TEST(Chistov_long_arithmetic, Logic) {

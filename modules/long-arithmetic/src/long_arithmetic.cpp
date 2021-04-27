@@ -89,7 +89,7 @@ const bigInt bigInt::operator -() const {
 
 const bool bigInt::operator<(const bigInt& right) const {
     bigInt left = *this;
-    if (left == right) return false;
+    // if (left == right) return false;
     if (left.negFlag) {
         if (right.negFlag) return ((-right) < (-left));
         else

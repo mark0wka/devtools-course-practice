@@ -5,9 +5,9 @@
 #include <vector>
 // #include <ostream>
 // #include <iomanip>
-//#include <sstream>
+// #include <sstream>
 #include <iostream>
-#include <string>
+// #include <string>
 
 class bigInt {
     static const int BASE = 1000000000;
@@ -22,7 +22,7 @@ class bigInt {
     explicit bigInt(std::string);
     explicit bigInt(int i);
     // friend std::ostream& operator <<(std::ostream&, const bigInt&);
-    //operator std::string() const;
+    // operator std::string() const;
     const bigInt operator +() const;
     const bigInt operator -() const;
     const bigInt operator ++();

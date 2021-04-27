@@ -39,21 +39,6 @@ void bigInt::delZeros() {
         negFlag = false;
 }
 
-/*std::ostream& operator <<(std::ostream& os, const bigInt& bi) {
-    if (bi.storage.empty()) {
-        os << 0;
-    } else {
-        if (bi.negFlag) os << '-';
-        os << bi.storage.back();
-        char old_fill = os.fill('0');
-        for (int64_t i = static_cast<int64_t>(bi.storage.size())
-            - 2; i >= 0; --i) os << std::setw(9) << bi.storage[i];
-        os.fill(old_fill);
-    }
-
-    return os;
-}*/
-
 const bool bigInt::operator==(const bigInt& right) const {
     bigInt left = *this;
     if (left.negFlag != right.negFlag) return false;
@@ -89,7 +74,6 @@ const bigInt bigInt::operator -() const {
 
 const bool bigInt::operator<(const bigInt& right) const {
     bigInt left = *this;
-    // if (left == right) return false;
     if (left.negFlag) {
         if (right.negFlag) return ((-right) < (-left));
         else
@@ -191,12 +175,6 @@ const bigInt bigInt::operator --(int i) {
     *this -= bigInt(1);
     return *this + bigInt(1);
 }
-
-/* bigInt::operator std::string() const {
-    std::stringstream ss;
-    // ss << *this;
-    return ss.str();
-} */
 
 bigInt::bigInt(int i) {
     if (i < 0) this->negFlag = true;

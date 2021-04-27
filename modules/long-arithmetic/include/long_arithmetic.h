@@ -3,8 +3,6 @@
 #define MODULES_LONG_ARITHMETIC_INCLUDE_LONG_ARITHMETIC_H_
 
 #include <vector>
-// #include <ostream>
-// #include <iomanip>
 #include <sstream>
 #include <iostream>
 #include <string>
@@ -21,8 +19,6 @@ class bigInt {
     bigInt();
     explicit bigInt(std::string);
     explicit bigInt(int i);
-    // friend std::ostream& operator <<(std::ostream&, const bigInt&);
-    // operator std::string() const;
     const bigInt operator +() const;
     const bigInt operator -() const;
     const bigInt operator ++();

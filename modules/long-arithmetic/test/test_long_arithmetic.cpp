@@ -55,7 +55,6 @@ TEST(Chistov_long_arithmetic, Addition_Subtractoin) {
     ASSERT_EQ(bi, bi2);
     ASSERT_EQ(++bi2, bi2 + bigInt(1));
     ASSERT_EQ(--bi2, bi2 - bigInt(1));
-    ASSERT_EQ(bi, +bi);
     ASSERT_EQ(-bi, bigInt(0) - bi);
     ASSERT_EQ(bigInt(0), bi6 + bi);
     ASSERT_EQ(-bi4, bi6 + bi7);
@@ -90,10 +89,7 @@ TEST(Chistov_long_arithmetic, Logic) {
     ASSERT_ANY_THROW(bi / bigInt(0));
 }
 
-TEST(Chistov_long_arithmetic, No_Errors) {
-    bigInt bi1(1), bi2(2), bi3(3), bi4(4), bi5;
-    if (bi1 < bi2 || bi1 > bi2 || bi1 != bi2 || bi1 >= bi2 || bi1 <= bi2) {
-        bi5 = ((bi4 + bi3 - bi1) / bi1 * bi1) % bi2;
-    }
-    ASSERT_EQ(bi2, bi1 + bigInt(1));
+TEST(Chistov_long_arithmetic, Throw) {
+    bigInt bi("1234567891112131415");
+    ASSERT_ANY_THROW(bi / bigInt(0));
 }

@@ -39,45 +39,33 @@ void bigInt::delZeros() {
         negFlag = false;
 }
 
-const bool bigInt::operator==(const bigInt& right) const {
+bool bigInt::operator==(const bigInt& right) const {
     bigInt left = *this;
-    if (left.negFlag != right.negFlag) return false;
+
     if (left.storage.empty()) {
         if (right.storage.empty() || (right.storage.size() == 1 &&
             right.storage[0] == 0)) return true;
-        else
-            return false;
+        return false;
     }
 
     if (right.storage.empty()) {
         if (left.storage.size() == 1 && left.storage[0] == 0) return true;
-        else
-            return false;
+        return false;
     }
-
-    if (left.storage.size() != right.storage.size()) return false;
-    for (size_t i = 0; i < left.storage.size(); ++i) if
-        (left.storage[i] != right.storage[i]) return false;
-
-    return true;
+    return left.storage == right.storage;
 }
 
-const bigInt bigInt::operator +() const {
-    return bigInt(*this);
-}
-
-const bigInt bigInt::operator -() const {
+bigInt bigInt::operator -() const {
     bigInt copy(*this);
     copy.negFlag = !copy.negFlag;
     return copy;
 }
 
-const bool bigInt::operator<(const bigInt& right) const {
+bool bigInt::operator<(const bigInt& right) const {
     bigInt left = *this;
     if (left.negFlag) {
         if (right.negFlag) return ((-right) < (-left));
-        else
-            return true;
+        return true;
     } else {
         if (right.negFlag) {
             return false;
@@ -86,8 +74,8 @@ const bool bigInt::operator<(const bigInt& right) const {
                 return left.storage.size() < right.storage.size();
             } else {
                 for (int64_t i = left.storage.size() - 1; i >= 0; --i) {
-                    if (left.storage[i] != right.storage[i]) return
-                        left.storage[i] < right.storage[i];
+                    if (left.storage[i] != right.storage[i]) return left.
+                        storage[i] < right.storage[i];
                 }
                 return false;
             }
@@ -95,19 +83,19 @@ const bool bigInt::operator<(const bigInt& right) const {
     }
 }
 
-const bool bigInt::operator!=(const bigInt& right) const {
+bool bigInt::operator!=(const bigInt& right) const {
     return !(*this == right);
 }
 
-const bool bigInt::operator<=(const bigInt& right) const {
+bool bigInt::operator<=(const bigInt& right) const {
     return (*this < right || *this == right);
 }
 
-const bool bigInt::operator>(const bigInt& right) const {
+bool bigInt::operator>(const bigInt& right) const {
     return !(*this <= right);
 }
 
-const bool bigInt::operator>=(const bigInt& right) const {
+bool bigInt::operator>=(const bigInt& right) const {
     return !(*this < right);
 }
 
@@ -115,14 +103,11 @@ bigInt bigInt::operator+(const bigInt& right) const {
     bigInt left = *this;
     if (left.negFlag) {
         if (right.negFlag) return -(-left + (-right));
-        else
-            return right - (-left);
-    } else {
-        if (right.negFlag) return left - (-right);
-    }
+        return right - (-left);
+    } else { if (right.negFlag) return left - (-right); }
     int carry = 0;
-    for (size_t i = 0; i < std::max(left.storage.size(),
-        right.storage.size()) || carry != 0; ++i) {
+    for (size_t i = 0; i < std::max(left.storage.size(), right.
+        storage.size()) || carry != 0; ++i) {
         if (i == left.storage.size()) left.storage.push_back(0);
         left.storage[i] += carry + (i < right.storage.size() ?
             right.storage[i] : 0);
@@ -140,8 +125,8 @@ bigInt bigInt::operator -(const bigInt& right) const {
     else if (left < right) return -(right - left);
     int carry = 0;
     for (size_t i = 0; i < right.storage.size() || carry != 0; ++i) {
-        left.storage[i] -= carry + (i < right.storage.size() ?
-            right.storage[i] : 0);
+        left.storage[i] -= carry + (i < right.storage.size() ? right.
+            storage[i] : 0);
         carry = left.storage[i] < 0;
         if (carry != 0) left.storage[i] += bigInt::BASE;
     }
@@ -158,20 +143,20 @@ bigInt& bigInt::operator -=(const bigInt& value) {
     return *this = (*this - value);
 }
 
-const bigInt bigInt::operator++() {
+bigInt bigInt::operator++() {
     return (*this += bigInt(1));
 }
 
-const bigInt bigInt::operator --() {
+bigInt bigInt::operator --() {
     return *this -= bigInt(1);
 }
 
-const bigInt bigInt::operator ++(int i) {
+bigInt bigInt::operator ++(int i) {
     *this += bigInt(1);
     return *this - bigInt(1);
 }
 
-const bigInt bigInt::operator --(int i) {
+bigInt bigInt::operator --(int i) {
     *this -= bigInt(1);
     return *this + bigInt(1);
 }
@@ -193,8 +178,8 @@ bigInt bigInt::operator*(const bigInt& right) const {
         int carry = 0;
         for (size_t j = 0; j < right.storage.size() || carry != 0; ++j) {
             int64_t cur = result.storage[i + j] +
-                left.storage[i] * 1LL * (j < right.storage.size() ?
-                    right.storage[j] : 0) + carry;
+                left.storage[i] * 1LL * (j < right.storage.size() ? right.
+                    storage[j] : 0) + carry;
             result.storage[i + j] = static_cast<int>(cur % bigInt::BASE);
             carry = static_cast<int>(cur / bigInt::BASE);
         }
@@ -224,9 +209,7 @@ bigInt bigInt::operator/(const bigInt& right) const {
             if (t <= current) {
                 x = m;
                 l = m + 1;
-            } else {
-                r = m - 1;
-            }
+            } else { r = m - 1; }
         }
 
         result.storage[i] = x;
@@ -243,9 +226,9 @@ void bigInt::shiftRight() {
         this->storage.push_back(0);
         return;
     }
-    this->storage.push_back(this->storage[this->storage.size() - 1]);
-    for (size_t i = this->storage.size() - 2; i > 0; --i)
-        this->storage[i] = this->storage[i - 1];
+    this->storage.push_back(this->storage.back());
+    for (size_t i = this->storage.size() - 2; i > 0; --i) this->storage[i] =
+        this->storage[i - 1];
     this->storage[0] = 0;
 }
 
@@ -274,11 +257,11 @@ bool bigInt::even() const {
 }
 
 const bigInt bigInt::pow(bigInt n) const {
-    bigInt a(*this), result(1);
-    while (n != bigInt(0)) {
+    bigInt a(*this), result(1), nul(0), del(2);
+    while (n != nul) {
         if (n.odd()) result *= a;
         a *= a;
-        n /= bigInt(2);
+        n /= del;
     }
 
     return result;

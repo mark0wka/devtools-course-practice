@@ -19,7 +19,7 @@ bigInt::bigInt(std::string str) {
             this->negFlag = false;
         }
 
-        for (int64_t i = str.length(); i > 0; i -= 9) {
+        for (int i = str.length(); i > 0; i -= 9) {
             if (i < 9)
                 this->storage.push_back(atoi(str.substr(0, i).c_str()));
             else
@@ -197,7 +197,7 @@ bigInt bigInt::operator/(const bigInt& right) const {
     b.negFlag = false;
     bigInt result, current;
     result.storage.resize(left.storage.size());
-    for (int64_t i = static_cast<int64_t>(left.storage.size())
+    for (int i = static_cast<int64_t>(left.storage.size())
         - 1; i >= 0; --i) {
         current.shiftRight();
         current.storage[0] = left.storage[i];

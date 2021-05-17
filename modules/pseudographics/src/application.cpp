@@ -12,11 +12,10 @@ Application::Application() : message_("") {}
 void Application::help(const char* appname, const char* message) {
     message_ =
         std::string(message) +
-        "This app prints numbers with dots and lines.\n\n" +
-        "Please provide arguments in the following format:\n$"
-        + appname + "x \n\n"  \
-        "Where the argument is a number. \n" \
-        "Example: " + appname + " 123.\n\n";
+        "This app prints numbers with dots and lines.\n\n" \
+        "Please provide arguments in the following format:\n" \
+        " $" + appname + "  123 or 5435 or 41 etc \n\n"  \
+        "Where the argument is a number. \n";
 }
 
 bool Application::validateNumberOfArguments(int argc, const char** argv) {

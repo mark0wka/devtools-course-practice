@@ -84,5 +84,14 @@ set_tests_properties (${prefix}_check_Number_V3 PROPERTIES
     PASS_REGULAR_EXPRESSION "._. ._. ._. ._.#|_. ..| |_| |_|#|_| ..| |_| ..|#"
     LABELS "${MODULE}")
 
+add_test(
+    NAME ${prefix}_check_Number_V4
+    COMMAND ${APPLICATION}  90173
+)
+
+set_tests_properties (${prefix}_check_Number_V4 PROPERTIES
+    PASS_REGULAR_EXPRESSION "._. ._. ... ._. ._.#|_| |.| ..| ..| ._|#..| |_| ..| ..| ._|#"
+    LABELS "${MODULE}")
+
 
 

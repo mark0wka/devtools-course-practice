@@ -57,9 +57,7 @@ std::string Application::operator()(int argc, const char** argv) {
     std::ostringstream stream;
 
     Pseudographics graph(num);
-
     stream << graph.get_graph();
-
     message_ = stream.str();
     return message_;
 }
